@@ -153,7 +153,7 @@ ggplot(bez) + geom_sf(fill="black") + geom_sf(data = br2,color="yellow",aes(size
 ggraph(graph = ig_graph,layout = lyt) +geom_sf(data=shp) + geom_edge_link(alpha=0.1) + geom_node_point(size=0.2,color=lyt$node_color)
 
 #dish_specific
-dish = "Cheeseburger"
+dish = "Döner|Dürüm"
 
 dish_keys <- lapply(lieferando$meal,function(x) which(str_detect(x,dish)))
 dish_check <- sapply(dish_keys,function(x) length(x) > 0)
