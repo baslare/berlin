@@ -1,3 +1,5 @@
+require(tidyverse)
+require(jsonlite)
 
 
 trip_lowerleft <- c(52.54447048576368, 13.397322756984629)
@@ -44,23 +46,8 @@ while( i <= length(lat_seq)){
 
 
 
-require(tidyverse)
+
  write_json(ta_list,"ta_json.json")
  
  
- #analysis
  
- ta_list <- jsonlite::read_json("ta_json.json",simplifyVector = F)
- 
- hotels <- lapply(ta_list, function(x) x$hotels)
- rest <- lapply(ta_list, function(x) if(length(x$restaurants) > 0) x$restaurants)
- attr <- lapply(ta_list, function(x) x$attractions)
-
- rest <- rest[!sapply(rest, is.null)]
- rest <- lapply(rest, function(x) lapply(x, function(y) as.data.frame(y)))
- rest_df <- rest %>% bind_rows()
- rest_df <- rest_df %>% distinct(url,.keep_all = T)
- 
- 
- ggplot(rest_df) + geom_point(aes(x=lng,y=lat),size=0)
-  
